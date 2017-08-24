@@ -31,14 +31,14 @@ char *test_push_pop() {
 	mu_assert(List_count(list) == 3, "Wrong count on push.");
 
 	char *val = List_pop(list);
-	mu_assert(val == test3, "Wrong value on pop");
+	mu_assert(val == test3, "Wrong value on pop.");
 
 	val = List_pop(list);
-	mu_assert(val == test2, "Wrong value on pop");
+	mu_assert(val == test2, "Wrong value on pop.");
 
-	val = List_pop(list)
+	val = List_pop(list);
 	mu_assert(val == test1, "Wrong value on pop");
-	mu_assert(List_count(list) == 0, "Wrong count after pop.");
+	mu_assert(List_count(list) == 0, "Wrong count after pop");
 
 	return NULL;
 }
@@ -59,7 +59,6 @@ char *test_unshift() {
 }
 
 char *test_remove() {
-
 	char *val = List_remove(list, list->first->next);
 	mu_assert(val == test2, "wrong removed element");
 	mu_assert(List_count(list) == 2, "wrong count after remove.");
