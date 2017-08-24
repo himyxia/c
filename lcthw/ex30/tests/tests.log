@@ -7,3 +7,12 @@ DEBUG tests/minunit_tests.c:52:
 ----- test_failures
 DEBUG tests/minunit_tests.c:53: 
 ----- test_dlclose
+DEBUG tests/minunit_tests.c:58: ---- RUNNING: ./tests/minunit_tests
+DEBUG tests/minunit_tests.c:50: 
+----- test_dlopen
+DEBUG tests/minunit_tests.c:51: 
+----- test_functions
+DEBUG tests/minunit_tests.c:52: 
+----- test_failures
+DEBUG tests/minunit_tests.c:53: 
+----- test_dlclose

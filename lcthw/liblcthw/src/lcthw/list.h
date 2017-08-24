@@ -1,6 +1,5 @@
 #ifndef lcthw_list_h
 #define lcthw_list_h
-
 #include <stdlib.h>
 
 struct ListNode;
@@ -33,6 +32,12 @@ void List_unshift(List *list, void *value);
 void *List_shift(List *list);
 
 void *List_remove(List *list, ListNode *node);
+
+// ListNode *_node = NULL;
+// ListNode *cur = NULL;
+// for (cur = _node = list->first; _node != NULL; cur = _node = _node->next) {
+// 		free(cur->value);
+// }
 
 #define LIST_FOREACH(L, S, M, V) ListNode *_node = NULL; \
 ListNode *V = NULL;\

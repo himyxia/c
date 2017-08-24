@@ -1,0 +1,13 @@
+DEBUG tests/minunit_tests.c:96: ---- RUNNING: ./tests/minunit_tests
+DEBUG tests/minunit_tests.c:86: 
+----- test_create
+DEBUG tests/minunit_tests.c:87: 
+----- test_push_pop
+DEBUG tests/minunit_tests.c:88: 
+----- test_unshift
+DEBUG tests/minunit_tests.c:89: 
+----- test_remove
+DEBUG tests/minunit_tests.c:90: 
+----- test_shift
+DEBUG tests/minunit_tests.c:91: 
+----- test_destory
