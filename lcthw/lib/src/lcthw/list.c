@@ -8,9 +8,11 @@ List *List_create() {
 void List_destory(List *list) {
 	LIST_FOREACH(list, first, next, cur) {
 		if(cur->prev) {
+			free(cur->prev->value);
 			free(cur->prev);
 		}
 	}
+	free(list->last->value);
 	free(list->last);
 	free(list);
 }
@@ -21,12 +23,8 @@ void List_clear(List *list) {
 	}
 }
 
-void List_clear_destory(List *list) {
-	List_clear(list);
-	List_destory(list);
-}
-
 void List_push(List *list, void *value) {
+	check_mem(list);
 	ListNode *node = calloc(1, sizeof(ListNode));
 	check_mem(node);
 
@@ -47,11 +45,22 @@ error:
 }
 
 void *List_pop(List *list) {
-	ListNode *node = list->last;
+	check_mem(list);
+	List *node = list -> last;
+	return node != NULL ? List_remove(list, node) : NULL;
+error:
+	return;
+}
+
+// shift to left
+void *List_shift(List *list) {
+	ListNode *node = list->first;
 	return node != NULL ? List_remove(list, node) : NULL;
 }
 
+// shift to right, insert into head
 void List_unshift(List *list, void *value) {
+	check_mem(list);
 	ListNode *node = calloc(1, sizeof(ListNode));
 	check_mem(node);
 
@@ -72,14 +81,9 @@ error:
 }
 
 
-void *List_shift(List *list) {
-	ListNode *node = list->first;
-	return node != NULL ? List_remove(list, node) : NULL;
-}
-
-
 void *List_remove(List *list, ListNode *node) {
 	void *result = NULL;
+	check_mem(list);
 
 	check(list->first && list->last, "List is empty.");
 	check(node, "node can't be NULL");

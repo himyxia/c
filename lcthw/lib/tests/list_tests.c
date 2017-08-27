@@ -10,12 +10,11 @@ char *test3 = "test3 data";
 char *test_create() {
 	list = List_create();
 	mu_assert(list != NULL, "Failed to create list.");
-
 	return NULL;
 }
 
 char *test_destory() {
-	List_clear_destory(list);
+	List_destory(list);
 	return NULL;
 }
 
