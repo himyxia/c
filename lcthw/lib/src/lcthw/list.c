@@ -80,7 +80,6 @@ error:
 	return;
 }
 
-
 void *List_remove(List *list, ListNode *node) {
 	void *result = NULL;
 	check_mem(list);
