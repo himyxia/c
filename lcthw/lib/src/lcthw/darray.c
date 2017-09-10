@@ -12,7 +12,7 @@ DArray *DArray_create(size_t element_size, size_t initial_max) {
 
 	array->end = 0;
 	array->element_size = element_size;
-	array->expand_rate = DEFAULT_EAPAND_RATE;
+	array->expand_rate = DEFAULT_EXPAND_RATE;
 
 	return array;
 error:
@@ -21,8 +21,8 @@ error:
 }
 
 void DArray_clear(DArray *array) {
-	int i = 0;
 	if(array->element_size > 0) {
+		int i = 0;
 		for(i = 0; i<array->max; i++) {
 			if(array->contents[i] != NULL) {
 				free(array->contents[i]);
@@ -71,8 +71,8 @@ void DArray_destory(DArray *array) {
 }
 
 void DArray_clear_destroy(DArray *array) {
-	DArray_clear();
-	DArray_destory();
+	DArray_clear(array);
+	DArray_destory(array);
 }
 
 int DArray_push(DArray *array, void *el) {
@@ -81,9 +81,8 @@ int DArray_push(DArray *array, void *el) {
 
 	if(DArray_end(array) >= DArray_max(array)) {
 		return DArray_expand(array);
-	}else {
-		return 0;
 	}
+	return 0;
 }
 
 void *DArray_pop(DArray *array) {
