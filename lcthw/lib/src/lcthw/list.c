@@ -1,6 +1,18 @@
 #include <lcthw/list.h>
 #include <lcthw/dbg.h>
 
+/*   ↓ push
+ * +----+ <- last
+ * |    |
+ * |    |
+ * |    |
+ * |    |
+ * |    |
+ * |    |
+ * |    |
+ * +----+ <- first
+ * */
+
 List *List_create() {
 	return calloc(1, sizeof(List));
 }
@@ -74,7 +86,6 @@ void List_unshift(List *list, void *value) {
 		list->first->prev = node;
 		list->first = node;
 	}
-
 	list->count++;
 error:
 	return;

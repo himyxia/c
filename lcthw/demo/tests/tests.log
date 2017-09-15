@@ -1,0 +1,11 @@
+DEBUG tests/list_tests.c:71: -----RUNNING: ./tests/list_tests
+Segmentation fault (core dumped)
+DEBUG tests/list_tests.c:71: -----RUNNING: ./tests/list_tests
+Segmentation fault (core dumped)
+DEBUG tests/list_tests.c:70: -----RUNNING: ./tests/list_tests
+Segmentation fault (core dumped)
+DEBUG tests/list_tests.c:70: -----RUNNING: ./tests/list_tests
+Segmentation fault (core dumped)
+DEBUG tests/list_tests.c:70: -----RUNNING: ./tests/list_tests
+DEBUG tests/list_tests.c:20: 
+----test_create
