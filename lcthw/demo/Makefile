@@ -34,4 +34,6 @@ tests: $(TESTS)
 	sh ./tests/runtests.sh
 
 clean:
-	rm -rf build $(OBJECTS) $(TESTS)
+	@rm -rf build $(OBJECTS) $(TESTS)
+	@rm -f tests/tests.log
+	@rm -rf `find . -name "*.swp" -print`
