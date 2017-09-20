@@ -15,20 +15,10 @@ DArray *DArray_create(size_t element_size, size_t initial_max) {
 	array->expand_rate = DEFAULT_EXPAND_RATE;
 
 	return array;
+
 error:
 	if(array) free(array);
 	return NULL;
-}
-
-void DArray_clear(DArray *array) {
-	if(array->element_size > 0) {
-		int i = 0;
-		for(i = 0; i<array->max; i++) {
-			if(array->contents[i] != NULL) {
-				free(array->contents[i]);
-			}
-		}
-	}
 }
 
 static inline int DArray_resize(DArray *array, size_t newsize) {
@@ -55,9 +45,20 @@ int DArray_expand(DArray *array) {
 
 error:
 	return -1;
-
 }
 
+void DArray_clear(DArray *array) {
+	if(array->element_size > 0) {
+		int i = 0;
+		for(i = 0; i<array->max; i++) {
+			if(array->contents[i] != NULL) {
+				free(array->contents[i]);
+			}
+		}
+	}
+}
+
+// reduce
 int DArray_contract(DArray *array) {
 	int new_size = array->end < (int)array->expand_rate ? (int) array->expand_rate : array->end;
 	return DArray_resize(array, new_size+1);
@@ -86,6 +87,7 @@ int DArray_push(DArray *array, void *el) {
 }
 
 void *DArray_pop(DArray *array) {
+	// at least end = one
 	check(array->end - 1 >= 0, "attempt to pop from empty array.");
 
 	void *el = DArray_remove(array, array->end - 1);
