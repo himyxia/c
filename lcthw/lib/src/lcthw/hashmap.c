@@ -31,7 +31,7 @@ Hashmap *Hashmap_create(Hashmap_compare compare, Hashmap_hash hash) {
 	Hashmap *map = calloc(1, sizeof(Hashmap));
 	check_mem(map);
 
-	map->compare = compare == NULL? default_compare : compare;
+	map->compare = compare == NULL ? default_compare : compare;
 	map->hash = hash == NULL ? default_hash : hash;
 
 	map -> buckets = DArray_create(sizeof(DArray *) , DEFAULT_NUMBER_OF_BUCKETS);
