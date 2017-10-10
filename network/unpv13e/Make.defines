@@ -37,4 +37,5 @@ LIBROUTE_OBJS = get_rtaddrs.o if_indextoname.o if_nameindex.o if_nametoindex.o n
 # Following are all the object files to create in the libxti/ directory.
 LIBXTI_OBJS =  wrapxti.o xti_accept.o xti_flags_str.o xti_getopt.o xti_ntop.o xti_ntop_host.o xti_rdwr.o xti_setopt.o xti_str_opts.o xti_tlook_str.o
 
-CLEANFILES = core core.* *.core *.o temp.* *.out typescript* \ *.lc *.lh *.bsdi *.sparc *.uw
+CLEANFILES = core core.* *.core *.o temp.* *.out typescript* \
+		*.lc *.lh *.bsdi *.sparc *.uw
