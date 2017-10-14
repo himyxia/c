@@ -26,7 +26,7 @@ void BSTree_destroy(BSTree *map);
 
 int BSTree_set(BSTree *map, void *key, void *data);
 void *BSTree_get(BSTree *map, void *key);
-void *BSTree_traverse(BSTree *map, BSTree_traverse_cb traverse_cb);
+int BSTree_traverse(BSTree *map, BSTree_traverse_cb traverse_cb);
 void *BSTree_delete(BSTree *map, void *key);
 
 #endif

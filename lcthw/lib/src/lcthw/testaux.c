@@ -395,7 +395,7 @@ int ret = 0;
 	printf ("\t# failures: %d\n", ret);
 	return ret;
 }
-
+/*
 int main () {
 int ret = 0;
 
@@ -420,4 +420,4 @@ int ret = 0;
 	printf ("# test failures: %d\n", ret);
 
 	return 0;
-}
+}*/

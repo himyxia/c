@@ -35,7 +35,7 @@ char *test_binstr_performance() {
 	int i = 0;
 	int found_at = 0;
 	unsigned long find_count = 0;
-	time_t elasped = 0;
+	time_t elapsed = 0;
 	time_t start = time(NULL);
 
 	do{
@@ -45,7 +45,7 @@ char *test_binstr_performance() {
 			find_count++;
 		}
 		elapsed = time(NULL) - start;
-	} while(elasped <= TEST_TIME);
+	} while(elapsed <= TEST_TIME);
 
 	debug("BINSTR COUNT: %lu, END TIME: %d, OPS: %f",
 			find_count, (int)elapsed, (double)find_count / elapsed);
@@ -57,7 +57,7 @@ char *test_find_performance() {
 	int found_at = 0;
 	unsigned long find_count = 0;
 	time_t elapsed = 0;
-	time_start = time(NULL);
+	time_t start = time(NULL);
 
 	do{
 		for(i = 0; i < 1000; i++) {
@@ -110,6 +110,8 @@ char *all_tests() {
 	mu_run_test(test_find_performance);
 	mu_run_test(test_binstr_performance);
 #endif
+	return NULL;
+
 }
 
 RUN_TESTS(all_tests);

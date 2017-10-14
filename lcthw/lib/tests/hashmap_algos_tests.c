@@ -1,4 +1,4 @@
-#include <lcthw/bstrlib>
+#include <lcthw/bstrlib.h>
 #include <lcthw/hashmap.h>
 #include <lcthw/hashmap_algos.h>
 #include <lcthw/darray.h>
@@ -55,8 +55,11 @@ enum { ALGO_FNV1A, ALGO_ADLER32, ALGO_DJB };
 
 int gen_keys(DArray *keys, int num_keys) {
 	int i = 0;
-	FILE *urand = fopen("/dev/urandom", r);
+	FILE *urand = fopen("/dev/urandom", "r");
 	check(urand != NULL, "Failed to open /dev/urandom");
+
+	struct bStream *stream = bsopen((bNread)fread, urand);
+	check(stream != NULL, "Failed to open /dev/urandom");
 
 	bstring key = bfromcstr("");
 	int rc = 0;
@@ -67,7 +70,7 @@ int gen_keys(DArray *keys, int num_keys) {
 		DArray_push(keys, bstrcpy(key));
 	}
 
-	bclose(key);
+	bsclose(key);
 	fclose(urand);
 	return 0;
 error:

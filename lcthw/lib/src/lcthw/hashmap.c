@@ -132,7 +132,7 @@ void *Hashmap_get(Hashmap *map, void *key) {
 	DArray *bucket = Hashmap_find_bucket(map, key, 0, &hash);
 	if(!bucket) return NULL;
 
-	int i = Hash_get_node(map, hash, bucket, key);
+	int i = Hashmap_get_node(map, hash, bucket, key);
 	if (i == -1) return NULL;
 
 	HashmapNode *node = DArray_get(bucket, i);
