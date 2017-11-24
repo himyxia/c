@@ -1,5 +1,10 @@
 print-%: ; @echo $*=$($*)
 
+PROGRAMS_SRC=$(wildcard bin/*.c)
+PROGRAMS=$(patsubst %.c,%,$(PROGRAMS_SRC))
+
+
+
 CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
 LDLIBS=-ldl $(OPTLIBS)
 PREFIX?=/usr/local
@@ -14,7 +19,7 @@ TARGET=build/liblcthw.a
 SO_TARGET=$(patsubst %s, %.so, $(TARGET))
 
 ## The Target Build
-all: $(TARGET) $(SO_TARGET) tests
+all: $(TARGET) $(SO_TARGET) tests $(PROGRAMS)
 
 dev: CFLAGS=-g -Wall -Isrc -Wextra $(OPTFLAGS)
 dev: all
@@ -31,6 +36,8 @@ build:
 	@mkdir -p build
 	@mkdir -p bin
 
+
+
 ## The Unit Tests
 .PHONY: tests
 tests: LDLIBS += $(TARGET)
@@ -42,7 +49,7 @@ valgrind:
 
 ## The Cleaner
 clean:
-	rm -rf build $(OBJECTS) $(TESTS)
+	rm -rf build $(OBJECTS) $(TESTS) $(PROGRAMS)
 	rm -f tests/tests.log
 	find . -name "*.gc*" -exec rm {} \;
 	rm -rf `find . -name "*.dSYM" -print`
@@ -58,3 +65,5 @@ BADFUNCS='[^_.>a-zA-Z0-9](str(n?cpy|n?cat|xfrm|n?dup|str|pbrk|tok|_)|stpn?cpy|a?
 check:
 	@echo Files with potentially dangerous functions.
 	@egrep $(BADFUNCS) $(SOURCES) || true
+
+$(PROGRAMS): CFLAGS += $(TARGET)
