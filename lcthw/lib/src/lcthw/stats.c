@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <lcthw/dbg.h>
 
-
 Stats *Stats_recreate(double sum, double sumsq, unsigned long n, double min, double max) {
 	Stats *st = malloc(sizeof(Stats)); 
 	check_mem(st);
