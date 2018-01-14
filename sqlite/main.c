@@ -1,8 +1,11 @@
 #include <stdbool.h>
+#include <errno.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 enum ExecuteResult_t {EXECUTE_SUCCESS, EXECUTE_TABLE_FULL};
 typedef enum ExecuteResult_t ExecuteResult;
@@ -99,8 +102,8 @@ Pager *pager_open(const char *filename) {
 
 
 struct Table_t {
-	void *pages[TABLE_MAX_PAGES];
-	Pager *Pager
+	//void *pages[TABLE_MAX_PAGES];
+	Pager *pager;
 	uint32_t num_rows;
 };
 
@@ -116,7 +119,7 @@ void pager_flush(Pager *pager, uint32_t page_num, uint32_t size) {
 		exit(EXIT_FAILURE);
 	}
 
-	off_t offset = lseek(pager->file_descriptor, page*PAGE_SIZE, SEEK_SET);
+	off_t offset = lseek(pager->file_descriptor, page_num*PAGE_SIZE, SEEK_SET);
 	if(offset == -1) {
 		printf("Error seeking: %d\n", errno);
 		exit(EXIT_FAILURE);
@@ -146,7 +149,7 @@ void *get_page(Pager *pager, uint32_t page_num) {
 			num_pages += 1;
 		}
 
-		if(page->num <= num_pages) {
+		if(page_num <= num_pages) {
 			lseek(pager->file_descriptor, page_num * PAGE_SIZE, SEEK_SET);
 			ssize_t bytes_read = read(pager->file_descriptor, page, PAGE_SIZE);
 			if(bytes_read == -1) {
@@ -177,7 +180,7 @@ void db_close(Table *table) {
 	if(num_additional_rows > 0) {
 		uint32_t page_num = num_full_pages;
 		if(pager->pages[page_num] != NULL) {
-			pager_flush(pager, page_num, num_addition_rows * ROW_SIZE);
+			pager_flush(pager, page_num, num_additional_rows * ROW_SIZE);
 			free(pager->pages[page_num]);
 			pager->pages[page_num] = NULL;
 		}
@@ -373,7 +376,7 @@ int main(int argc, char *argv[]) {
 		read_input(input_buffer);
 
 		if (input_buffer->buffer[0] == '.') {
-			switch (do_meta_command(input_buffer)) {
+			switch (do_meta_command(input_buffer, table)) {
 				case(META_COMMAND_SUCCESS):
 					continue;
 				case(META_COMMAND_UNRECOGNIZED_COMMAND):
